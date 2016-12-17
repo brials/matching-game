@@ -2,15 +2,16 @@ Title: this is "matching-game" schema.
 
 Feature Tasks:
 
-wireframe: 4 pages: user splash page, feature game (themes), About-us, (game-score)
-
+wireframe: 4 pages: user splash page, feature game (theme), About-us, (game-score)
 
 flow charts:
 
+Page Requirement:
 1) user splash page:
    login/sign-up
    A) new user: create new object instance (name, password),
       , navigate to feature game page
+      userArray = [];
 name (name, password){
   this.name;
   this.password;
@@ -19,42 +20,60 @@ name (name, password){
   this.active = true;
 }
 eventHandler function (){
-  check active status;
+  set active status;
+  localStorage(if not true, set localStorage);
   go to another html page;
-  localStorage(stuff);
 }
 
-B) repeat user: check against existing objects (name, password)
-    return alert when validation fails, else navigate to feature game page
+B) repeat user: retrieve and verify localStorage array (name, password)
 
     eventHandler function (){
-      check active status;
-      go to another html page;
-      localStorage(stuff);
+      if validation fails, return alert;
+
+      set active status;
+      update localStorage (setItem);
+      navigate to feature game page;
+    }
 
 2) Feature game:
 
-A) instruction (one user)
+A) instruction (one user);
+    eventHandler singleUser button ()
+    {userPrompt(how many squares do you want?)
+     for initial build, we only input "4"}
 
-B) set up two card instances (face up = false, location);
+  cardArray = [];
 
-C) set up number of squares, each square with id("x,y")
+B) set up number of card instances based on number of squares {
+  this.name;
+  this.imgLocation;
+  this.face up = false;
+  this.location;
+  this.removed = false;
+  cardArray.push(this);
+  }
 
-D) function random generator for card location
+C) function render table(set up number of squares (for initial build, set up 4 x 4 pairs/grid, increase difficulties with more squares), each square with id("x,y")) ();
 
-E) evenHandler function (click) {
-    flip first card,
-    flip second card, check if match,
-    render table;
+D) function random generator for card location ();
+
+E) function render card (cardArray[i].location, render table);
+
+    numClick = 0;
+F) evenHandler for clicking one of the squares function (click) {
+      alert(for not clicking card);
+    query card,
+    if first click, flip card(imglocation)/card.faceup = true, numClick += 1;
+    if second click, flip second card(imglocation)/card.faceup = true, timeDelay, if match, remove card from table;
+      render cards(); this.removed = true} else
+      { flip both cards, set both first and second card.faceup = false, render cards();
+        }
     }
 
-  alert(for not clicking card)
-
-F) 
-
-
-
-
+F) score object(boardSquare):{
+    this.squares = boardSquares;
+    this.SessionDuration(getStartTime,getStopTime);
+  }
 
 3) About-us:
 add team-member bio;
