@@ -8,13 +8,16 @@ var backImage = ''; //possible var filepath for back of cardArray
 var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 
-function rend(el, content, place, id){
+// function to render to page
+function rend(el, content, place, id, img){
   var tempEl = document.createElement(el);
   tempEl.textContent = content;
   tempEl.setAttribute('id', id);
+  tempEl.setAttribute('src', img);
   place.appendChild(tempEl);
 }
 
+// function to make row
 function makeRow(id, columns){
   rend('tr', '', tablePlace, id);
   var newPlace = document.getElementById(id);
@@ -23,11 +26,13 @@ function makeRow(id, columns){
   }
 }
 
+// function to add a table.
 function makeTable(rows){
   for(var i = rows - 1; i >= 0 ; i--){
     makeRow(i, rows);
   }
 }
+
 
 
 var faceDown.src = img/Face Down.png;
@@ -38,6 +43,22 @@ var faceDown.src = img/Face Down.png;
 // function CardtoBeMatch(name) {
 //   this.
 // }
+
+// function to render cards
+function renderCards(){
+  cardArray.forEach(renderImage)
+}
+
+// function called.
+function renderImage(element){
+  if(!element.removed){
+    if(!element.faceUp){
+      rend('img', '', element.location, element.name, cardDown);
+    } else {
+      rend('img', '', element.location, element.name, element.imgLocation);
+    }
+  }
+
 
 //provide random index for array
 function random(array) {
