@@ -26,3 +26,24 @@ function makeTable(rows){
     makeRow(i, rows);
   }
 }
+
+//provide random index for array
+function random(array) {
+  return Math.floor(Math.random(array.length));
+}
+
+// function to assign new location to each card
+function imageRandom(rows) {
+  var array = [];
+  for (var i = 0; i < rows; i++) {
+    for (var k = 0; k < rows; k++) {
+      var temp = i + ',' + k;
+      array.push(temp);
+    }
+  }
+  for (var b = 0; b < cardArray.length; b++) {
+    var tempTwo = random();
+    cardArray[b].location = array[tempTwo];
+    array.splice(tempTwo, 1);
+  }
+}
