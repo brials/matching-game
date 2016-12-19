@@ -9,29 +9,35 @@ flow charts:
 Page Requirement:
 1) user splash page:
    login/sign-up
-   A) new user: create new object instance (name, password),
-      , navigate to feature game page
-      userArray = [];
-name (name, password){
-  this.name;
-  this.password;
-  this.score;
-  userArray.push(this);
-  this.active = true;
-}
-eventHandler function (){
-  set active status;
-  localStorage(if not true, set localStorage);
-  go to another html page;
+   A) function new user  (name, password){
+      , navigate to feature game page,
+      userArray = [];}
+
+      function name (name, password){
+        this.name;
+        this.password;
+        this.score;
+        game-status = render state of table from previous session = [];
+        userArray.push(this);
+        this.active = true;
+      }
+
+      eventHandler function (){
+        set active status;
+        localStorage(if not true, set localStorage);
+        go to another html page;
 }
 
-B) repeat user: retrieve and verify localStorage array (name, password)
+  B) function repeat user: retrieve and verify localStorage array (name, password) {
+    game-status = render state of table from previous session
+    }
 
-    eventHandler function (){
+      eventHandler function (){
       if validation fails, return alert;
 
       set active status;
       update localStorage (setItem);
+      game-status = render state of table from previous session = [];
       navigate to feature game page;
     }
 
@@ -40,24 +46,33 @@ B) repeat user: retrieve and verify localStorage array (name, password)
 A) instruction (one user);
     eventHandler singleUser button ()
     {userPrompt(how many squares do you want?)
-     for initial build, we only input "4"}
+     for initial build, we only input "4"
+     alert (verify if number square = 2 || 4 || 6 || 8);
+   }
 
-  cardArray = [];
+  cardArray = [ 32 images, faceup_card, shown_card];
 
-B) set up number of card instances based on number of squares {
+B) set up number of card instances based on number of squares (numSquares){
   this.name;
   this.imgLocation;
   this.face up = false;
   this.location;
+  game-level = numSquares;
   this.removed = false;
   cardArray.push(this);
   }
 
-C) function render table(set up number of squares (for initial build, set up 4 x 4 pairs/grid, increase difficulties with more squares), each square with id("x,y")) ();
+C) function render table(set up number of squares {
+    (for initial build, set up 4 x 4 pairs/grid, increase difficulties with more squares), each square with id("x,y")) ()};
 
-D) function random generator for card location ();
+D) function random generator for card location (){
+    rules TBD;
+    };
 
-E) function render card (cardArray[i].location, render table);
+E) function render card (cardArray[i].location, render table){
+
+
+    }
 
     numClick = 0;
 F) evenHandler for clicking one of the squares function (click) {
