@@ -6,10 +6,11 @@ var backImage = ''; //possible var filepath for back of cardArray
 var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 
-function rend(el, content, place, id){
+function rend(el, content, place, id, img){
   var tempEl = document.createElement(el);
   tempEl.textContent = content;
   tempEl.setAttribute('id', id);
+  tempEl.setAttribute('src', img);
   place.appendChild(tempEl);
 }
 
@@ -24,5 +25,19 @@ function makeRow(id, columns){
 function makeTable(rows){
   for(var i = rows - 1; i >= 0 ; i--){
     makeRow(i, rows);
+  }
+}
+
+function renderCards(){
+  cardArray.forEach(renderImage)
+}
+
+function renderImage(element){
+  if(!element.removed){
+    if(!element.faceUp){
+      rend('img', '', element.location, element.name, element.imgLocation);
+    } else {
+      rend('img', '', element.location, element.name, cardDown);
+    }
   }
 }
