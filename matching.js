@@ -6,6 +6,7 @@ var backImage = ''; //possible var filepath for back of cardArray
 var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 
+// function to render to page
 function rend(el, content, place, id, img){
   var tempEl = document.createElement(el);
   tempEl.textContent = content;
@@ -14,6 +15,7 @@ function rend(el, content, place, id, img){
   place.appendChild(tempEl);
 }
 
+// function to make row
 function makeRow(id, columns){
   rend('tr', '', tablePlace, id);
   var newPlace = document.getElementById(id);
@@ -22,16 +24,19 @@ function makeRow(id, columns){
   }
 }
 
+// function to add a table.
 function makeTable(rows){
   for(var i = rows - 1; i >= 0 ; i--){
     makeRow(i, rows);
   }
 }
 
+// function to render cards
 function renderCards(){
   cardArray.forEach(renderImage)
 }
 
+// function called.
 function renderImage(element){
   if(!element.removed){
     if(!element.faceUp){
@@ -39,5 +44,25 @@ function renderImage(element){
     } else {
       rend('img', '', element.location, element.name, element.imgLocation);
     }
+  }
+
+//provide random index for array
+function random(array) {
+  return Math.floor(Math.random(array.length));
+}
+
+// function to assign new location to each card
+function imageRandom(rows) {
+  var array = [];
+  for (var i = 0; i < rows; i++) {
+    for (var k = 0; k < rows; k++) {
+      var temp = i + ',' + k;
+      array.push(temp);
+    }
+  }
+  for (var b = 0; b < cardArray.length; b++) {
+    var tempTwo = random();
+    cardArray[b].location = array[tempTwo];
+    array.splice(tempTwo, 1);
   }
 }
