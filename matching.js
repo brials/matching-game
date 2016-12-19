@@ -35,9 +35,9 @@ function renderCards(){
 function renderImage(element){
   if(!element.removed){
     if(!element.faceUp){
-      rend('img', '', element.location, element.name, element.imgLocation);
-    } else {
       rend('img', '', element.location, element.name, cardDown);
+    } else {
+      rend('img', '', element.location, element.name, element.imgLocation);
     }
   }
 }
