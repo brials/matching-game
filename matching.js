@@ -1,3 +1,5 @@
+'use strict';
+
 var cardArray = []; // This will be the array of cards.
 var objArray = []; //This will be all of the users that we will pull from local storage.
 
@@ -26,3 +28,12 @@ function makeTable(rows){
     makeRow(i, rows);
   }
 }
+
+var faceDown.src = img/Face Down.png;
+
+// var names = ['Admir','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',]
+//
+//
+// function CardtoBeMatch(name) {
+//   this.
+// }
