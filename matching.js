@@ -45,6 +45,7 @@ function renderImage(element){
       rend('img', '', element.location, element.name, element.imgLocation);
     }
   }
+}
 
 //provide random index for array
 function random(array) {
