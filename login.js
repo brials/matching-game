@@ -17,7 +17,7 @@ function loginHandler(event) {
   //element objArray
   event.preventDefault();
   var foundUser=false;
-  var user = event.target.username.value;
+  var user = event.target.username.value.toLowerCase();
   var password = event.target.password.value;
   console.log(user);
   console.log(password);
@@ -29,38 +29,28 @@ function loginHandler(event) {
       }
     }
   }
-}
-if(!foundUser){
-  // var user = event.target.username.value;
-  // //var password = event.target.password.value;
-  // new People(user, password);
-  return alert('Please re-enter a valid username or password. If you are a new user, please sign up.');
-}
-localStorage.objArray = JSON.stringify(objArray);//update local storage
-window.location.href='matching.html';
-
-
-
-document.getElementById('loginSubmit').addEventListener('click', loginHandler);
-
-
-
-function signUpHandler(event) {
-  event.preventDefault();
-  var user = event.target.username.value;
-  var password = event.target.password.value;
-  new People(user, password);
-  objArray[objArray.length - 1].active = true;
+  if(!foundUser){
+    return alert('Please re-enter a valid username or password. If you are a new user, please sign up.');
+  }
   localStorage.objArray = JSON.stringify(objArray);//update local storage
   window.location.href='matching.html';
 }
 
+document.getElementById('loginSubmit').addEventListener('submit', loginHandler);
 
-document.getElementById('signUpSubmit').addEventListener('click', signUpHandler);
+function signUpHandler(event) {
+  event.preventDefault();
+  var user = event.target.usernameNew.value.toLowerCase();
+  var password = event.target.passwordNew.value;
+  new People(user, password);
+  objArray[objArray.length - 1].active = true;
+  localStorage.setItem('objArray', JSON.stringify(objArray));//update local storage
+  window.location.href='matching.html';
+}
 
-
+document.getElementById('signUpSubmit').addEventListener('submit', signUpHandler);
 
 if(localStorage.objArray){
   var retrievedData = localStorage.getItem('objArray');
   objArray = JSON.parse(retrievedData);
-}//put in objArray
+}
