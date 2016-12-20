@@ -6,27 +6,31 @@ function People(name, password) {
   this.name = name;
   this.password = password;
   this.score = 0;
-  game-status = render state of table from previous session = [];
-  userArray.push(this);
+  //game-status = render state of table from previous session = [];
+  objArray.push(this);
   this.active = true;
 
 }
 
 function loginHandler(event) {
+  //Object
   //element objArray
   event.preventDefault();
+  var foundUser;
   var user = event.target.username.value;
   var password = event.target.password.value;
   console.log(user);
   console.log(password);
-  for (var i = 0; i< objArray.length;i++) {
-    if(objArray[i].name === user && objArray[i].password === password){
-      objArray[i].active === true;
-      var found = true;
+  for (var i = 0; i < objArray.length;i++) {
+    if(objArray[i].name === user){
+      if(objArray[i].password === password){
+        objArray[i].active === true;
+        foundUser = true;
+      }
     }
   }
-  if(!found){
-    return alert('Please re-enter a valid username and password. If you are a new user, please sign up.');
+  if(!foundUser){
+    return alert('Please re-enter a valid username or password. If you are a new user, please sign up.');
   }
   localStorage.objArray = JSON.stringify(objArray);//update local storage
   window.location.href='matching.html';
@@ -34,16 +38,19 @@ function loginHandler(event) {
 
 
 
-document.getElementById('loginSubmit').addEventListener('submit', loginHandler);
+document.getElementById('loginSubmit').addEventListener('click', loginHandler);
 
 
 
 function signUpHandler(event) {
   event.preventDefault();
-  
+  var user = event.target.username.value;
+  var password = event.target.password.value;
+  new People(user, password);
+
 }
 
-document.getElementById('signUpSubmit').addEventListener('submit', signUpHandler);
+document.getElementById('signUpSubmit').addEventListener('click', signUpHandler);
 
 
 
