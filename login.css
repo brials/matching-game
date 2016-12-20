@@ -1,18 +1,21 @@
 
 body {
-  text-align: center;
-  /*background-image: url(https://s-media-cache-ak0.pinimg.com/736x/62/1c/b3/621cb3654e98fe86ada3b347781ce42b.jpg);*/
 
-}
-img {
+  text-align: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-image: url(http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg);
+}
+
+img {
+
   opacity: 0.5;
   filter: alpha(opacity=50);
 
 }
+
 button {
-  background-color: #772299;
+  background-color: #4280a7;
   color: white;
   border: none;
   padding: 5px 75px;
