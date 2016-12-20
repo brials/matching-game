@@ -1,22 +1,32 @@
+
 body {
-  width: 850px;
+  background-image: url("http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg");
+  background-size: cover;
+  width: 100%;
   font-family: Arial, Verdana, sans-serif;
   color: #665544;
+  margin-left:80px;
+}
+
+h1, a {
+  color: #4200EE;
 }
 
 section {
   width: 30%;
+  height:400px;
   float: left;
-  margin: 20px;
+  margin: 20px 60px 20px 0px;
   padding: 60px; background-color: #efefef;
 }
 
 article {
   float: left;
+  width: 100%;
 }
 
 p {
-  width: 200px;
+  width: 100%;
 }
 
 .clear {
