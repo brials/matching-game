@@ -8,6 +8,8 @@ var backImage = ''; //possible var filepath for back of cardArray
 var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 var cardDown = 'images/Face_Down.png';
+var clickCount = 1;
+var userRows = 4;
 
 // function to render to page
 function rend(el, content, place, id, img){
@@ -37,7 +39,7 @@ function makeTable(rows){
 //create images
 
 
-var names = ['Alki_Beach','Bruce_Brandon','Chess_Player','Chief_Seattle','Elephant_Carwash','Elliot_Bay_bookstore','Fremont_Troll','Great_Wheel','Hiram_Chittenden_Locks','International_District','Ivar_Seafood','Jazz_Alley','Microsoft','Mount_Rainier_National_Park','Museum_of_Flight','Original_Starbucks','Pacifi_Science_Center','Pike_Place_Market','Pioneer_Square','Queen_Ann_Beerhall','Safeco_Field','Science_Center','Seahawks','Seattle_Aquarium','Seattle_Art_Museum','Sleepless_in_Seattle','Space_Needle','University_of_Washington','Washington_Park_Arboretum','Washington_State_Ferries','Waterfront','Woodland_Park_Zoo']
+var names = ['Alki_Beach','Bruce_Brandon','Chess_Player','Chief_Seattle','Elephant_Carwash','Elliot_Bay_bookstore','Fremont_Troll','Great_Wheel','Hiram_Chittenden_Locks','International_District','Ivar_Seafood','Jazz_Alley','Microsoft','Mount_Rainer_National_Park','Museum_of_Flight','Original_Starbucks','Pacifi_Science_Center','Pike_Place_Market','Pioneer_Square','Queen_Ann_Beerhall','Safeco_Field','Science_Center','Seahawks','Seattle_Aquarium','Seattle_Art_Museum','Sleepless_in_Seattle','Space_Needle','University_of_Washington','Washington_Park_Arboretum','Washington_State_Ferries','Waterfront','Woodland_Park_Zoo']
 
 //create object_ophelia
 function CardtoBeMatch(name) {
@@ -72,6 +74,8 @@ function makeCards(rows){
 //   }
 // }
 function renderImage(){
+  tablePlace.innerHTML = '';
+  makeTable(userRows);
   for(var i = 0; i < cardArray.length; i++){
     if(!cardArray[i].removed){
       if(!cardArray[i].faceUp){
@@ -92,9 +96,9 @@ function random(array) {
 // function to assign new location to each card
 function imageRandom(rows) {
   var array = [];
-  for (var i = 0; i < rows; i++) {
-    for (var k = 0; k < rows; k++) {
-      var temp = i + ',' + k;
+  for (var x = 0; x < rows; x++) {
+    for (var y = 0; y < rows; y++) {
+      var temp = x + ',' + y;
       array.push(temp);
     }
   }
@@ -105,9 +109,54 @@ function imageRandom(rows) {
   }
 }
 
+function tableHandler(event){
+  event.preventDefault();
+  var clickId = event.target.id;
+  console.log(clickId);
+  console.log(event.target);
+  if(clickId === '' || clickId === 'table'){
+    return alert('Please click on an a remaining card.');
+  }
+  if(clickCount === 1){
+    for(var i = 0; i < cardArray.length; i++){
+      if(cardArray[i].name === clickId){
+        cardArray[i].faceUp = true;
+        var click1 = clickId;
+        renderImage();
+        clickCount += 1;
+      }
+    }
+  }
+  if(clickCount === 2){
+    for(var j = 0; j < cardArray.length; j++){
+      if(cardArray[j].name === clickId){
+        cardArray[j].faceUp = true;
+        renderImage();
+      }
+    }
+    var click2 = clickId;
+    setTimeout(function(){
+      if(click1 === click2){
+        for(var b = 0; b < cardArray.length; b++){
+          if(cardArray[b].name === click1){
+            cardArray[b].removed = true;
+          }
+        }
+      } else {
+        for(var e = 0; e < cardArray.length; e++){
+          cardArray[e].faceUp = false;
+        }
+      }
+    }, 2000);
+    renderImage();
+    clickCount = 1;
+  }
+}
+
 
 //function call
-makeTable(4);
-makeCards(4);
-imageRandom(4);
+makeCards(userRows);
+imageRandom(userRows);
 renderImage();
+
+tablePlace.addEventListener('click', tableHandler);
