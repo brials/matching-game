@@ -37,8 +37,6 @@ function makeTable(rows){
 }
 
 //create images
-
-
 var names = ['Alki_Beach','Bruce_Brandon','Chess_Player','Chief_Seattle','Elephant_Carwash','Elliot_Bay_bookstore','Fremont_Troll','Great_Wheel','Hiram_Chittenden_Locks','International_District','Ivar_Seafood','Jazz_Alley','Microsoft','Mount_Rainer_National_Park','Museum_of_Flight','Original_Starbucks','Pacifi_Science_Center','Pike_Place_Market','Pioneer_Square','Queen_Ann_Beerhall','Safeco_Field','Science_Center','Seahawks','Seattle_Aquarium','Seattle_Art_Museum','Sleepless_in_Seattle','Space_Needle','University_of_Washington','Washington_Park_Arboretum','Washington_State_Ferries','Waterfront','Woodland_Park_Zoo']
 
 //create object_ophelia
@@ -54,9 +52,28 @@ function CardtoBeMatch(name) {
 //new instances_ophelia
 function makeCards(rows){
   for(var i = 0; i < rows*rows; i+2) {
-    new CardtoBeMatch(names[i]);
-    new CardtoBeMatch(names[i]);
+    new CardtoBeMatch(names[i],names[i]);
   }
+}
+
+//Resume button_ophelia
+var startTime = new Date;
+document.getElementById('NewGame').addEventListener('click', function(){
+  var userRows = prompt('Enter your level: 2 or 4 or 6 or 8');
+  if(userRows != '2' && userRows != '4' && userRows != '6' && userRows != '8'){
+    return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
+  }
+  userRows = parseInt(userRows);
+  makeCards(userRows);
+  imageRandom(userRows);
+  renderImage();
+  var startTime = new Date;
+});
+
+// track game time_ophelia
+var gameTime = function () {
+  var endTime = new Date;
+  return endTime-startTime;
 }
 
 
