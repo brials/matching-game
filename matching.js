@@ -58,7 +58,6 @@ function makeCards(rows){
   }
 }
 
-
 // function to render cards
 // function renderCards(){
 //   cardArray.forEach(renderImage);
@@ -158,5 +157,10 @@ function tableHandler(event){
 makeCards(userRows);
 imageRandom(userRows);
 renderImage();
+
+// Part of localStorage
+if(localStorage.objArray){
+  objArray = JSON.parse(localStorage.objArray);
+}
 
 tablePlace.addEventListener('click', tableHandler);
