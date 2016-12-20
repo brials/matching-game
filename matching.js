@@ -103,33 +103,34 @@ function imageRandom(rows) {
       arr.push(temp);
     }
   }
-  console.log(arr);
+  // console.log(arr);
   for (var b = 0; b < cardArray.length; b++) {
     var tempTwo = random(arr.length);
-    console.log(tempTwo);
+    // console.log(tempTwo);
     cardArray[b].location = arr[tempTwo];
-    console.log(cardArray[b].location);
-    console.log(arr);
+    // console.log(cardArray[b].location);
+    // console.log(arr);
     arr.splice(tempTwo, 1);
-    console.log(arr);
+    // console.log(arr);
   }
 }
 
 function tableHandler(event){
   event.preventDefault();
   var clickId = event.target.id;
-  console.log(clickId);
-  console.log(event.target);
+  // console.log(clickId);
+  // console.log(event.target);
   if(clickId === '' || clickId === 'table'){
     return alert('Please click on an a remaining card.');
   }
   if(clickCount === 1){
     for(var i = 0; i < cardArray.length; i++){
+      // console.log(cardArray[i].name, clickId )
       if(cardArray[i].name === clickId){
         cardArray[i].faceUp = true;
         var click1 = clickId;
+        // console.log('hi');
         renderImage();
-        clickCount += 1;
       }
     }
   }
@@ -141,20 +142,21 @@ function tableHandler(event){
       }
     }
     var click2 = clickId;
-    setTimeout(function(){
-      if(click1 === click2){
-        for(var b = 0; b < cardArray.length; b++){
-          if(cardArray[b].name === click1){
-            cardArray[b].removed = true;
-          }
-        }
-      } else {
-        for(var e = 0; e < cardArray.length; e++){
-          cardArray[e].faceUp = false;
+    if(click1 === click2){
+      for(var b = 0; b < cardArray.length; b++){
+        if(cardArray[b].name === click1){
+          cardArray[b].removed = true;
         }
       }
-    }, 2000);
-    renderImage();
+    }
+    for(var e = 0; e < cardArray.length; e++){
+      cardArray[e].faceUp = false;
+    }
+  }
+  setTimeout(function(){renderImage()}, 3000);
+  if(clickCount === 1){
+    clickCount += 1;
+  } else {
     clickCount = 1;
   }
 }
