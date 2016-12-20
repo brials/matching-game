@@ -1,22 +1,27 @@
 body {
-  width: 850px;
+  /*width: 850px;*/
+  width: 100%;
   font-family: Arial, Verdana, sans-serif;
   color: #665544;
+  margin-left:80px;
 }
 
 section {
   width: 30%;
   float: left;
-  margin: 20px;
+  /*margin: 20px;*/
+  margin: 20px 60px 20px 0px;
   padding: 60px; background-color: #efefef;
 }
 
 article {
   float: left;
+  width: 100%;
 }
 
 p {
-  width: 200px;
+  /*width: 200px;*/
+  width: 100%;
 }
 
 .clear {
