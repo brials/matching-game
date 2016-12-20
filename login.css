@@ -1,0 +1,17 @@
+
+body {
+  text-align: center;
+}
+
+
+button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 75px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 12px;
+  margin: 0 auto;
+}
