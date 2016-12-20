@@ -25,8 +25,9 @@ function loginHandler(event) {
   console.log(user);
   console.log(password);
   for (var i = 0; i < objArray.length;i++) {
-    if(objArray[i].password === password) {
-      objArray[i].active === true;
+    objArray[i].active = false;
+    if(objArray[i].name === user && objArray[i].password === password) {
+      objArray[i].active = true;
       foundUser = true;
     }
   }
@@ -46,11 +47,14 @@ function signUpHandler(event) {
     if(objArray[i].name === user) {
       return alert('Username already in use. Please choose another username');
     }
-    new People(user, password);
-    objArray[objArray.length - 1].active = true;
-    localStorage.setItem('objArray', JSON.stringify(objArray));//update local storage
-    window.location.href='matching.html';
   }
+  new People(user, password);
+  for(var j = 0; j < objArray.length; j++){
+    objArray[j].active = false;
+  }
+  objArray[objArray.length - 1].active = true;
+  localStorage.setItem('objArray', JSON.stringify(objArray));//update local storage
+  window.location.href='matching.html';
 }
 document.getElementById('signUpSubmit').addEventListener('submit', signUpHandler);
 
