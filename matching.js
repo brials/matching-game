@@ -7,6 +7,7 @@ var backImage = ''; //possible var filepath for back of cardArray
 
 var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
+var scorePlace = document.getElementById('scores');
 var cardDown = 'images/Face_Down.png';
 var clickCount = 1;
 var userRows = 4;
@@ -63,6 +64,7 @@ function makeCards(rows){
 
 // Resume button_ophelia
 document.getElementById('NewGame').addEventListener('click', function(){
+  scorePlace.innerHTML = '';
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   console.log(userRows);
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
@@ -128,11 +130,25 @@ function checkIfFinished(){
     var time = gameTime();
     var difficulty = 'score' + userRows;
     for(var j = 0; j < objArray.length; j++){
-      if(objArray[i].active){
-        objArray[i][difficulty] = time
+      if(objArray[j].active){
+        objArray[j][difficulty] = time;
       }
     }
-    alert('Congratulations you finished the game in ' + time + ' milliseconds.');
+    localStorage.setItem('objArray', JSON.stringify(objArray))
+    renderScores();
+  }
+}
+
+function renderScores(){
+  var difficulty = 'score' + userRows;
+  var msg = 'User Time Difficulty ' + userRows;
+  rend('tr', 'User', scorePlace, 'head')
+  rend('th', msg, document.getElementById('head'));
+  for(var i = 0; i < objArray.length; i++){
+    var newId = i + 'scores'
+    rend('tr', '', scorePlace, newId);
+    rend('td', objArray[i].name, document.getElementById(newId));
+    rend('td', objArray[i][difficulty], document.getElementById(newId));
   }
 }
 
@@ -191,5 +207,9 @@ function tableHandler(event){
 makeCards(userRows);
 imageRandom(userRows);
 renderImage();
+
+if(localStorage.objArray){
+  objArray= JSON.parse(localStorage.objArray);
+}
 
 tablePlace.addEventListener('click', tableHandler);
