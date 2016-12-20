@@ -89,23 +89,29 @@ function renderImage(){
 }
 
 //provide random index for array
-function random(array) {
-  return Math.floor(Math.random(array.length));
+function random(num) {
+  var number = Math.floor(Math.random() * num);
+  return number;
 }
 
 // function to assign new location to each card
 function imageRandom(rows) {
-  var array = [];
+  var arr = [];
   for (var x = 0; x < rows; x++) {
     for (var y = 0; y < rows; y++) {
       var temp = x + ',' + y;
-      array.push(temp);
+      arr.push(temp);
     }
   }
+  console.log(arr);
   for (var b = 0; b < cardArray.length; b++) {
-    var tempTwo = random(array);
-    cardArray[b].location = array[tempTwo];
-    array.splice(tempTwo, 1);
+    var tempTwo = random(arr.length);
+    console.log(tempTwo);
+    cardArray[b].location = arr[tempTwo];
+    console.log(cardArray[b].location);
+    console.log(arr);
+    arr.splice(tempTwo, 1);
+    console.log(arr);
   }
 }
 
