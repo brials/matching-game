@@ -5,7 +5,10 @@ var objArray = []; //We will set local storage into this.
 function People(name, password) {
   this.name = name;
   this.password = password;
-  this.score = 0;
+  this.score2 = 0;
+  this.score4 = 0;
+  this.score6 = 0;
+  this.score8 = 0;
   //game-status = render state of table from previous session = [];
   objArray.push(this);
   this.active = true;
@@ -22,11 +25,9 @@ function loginHandler(event) {
   console.log(user);
   console.log(password);
   for (var i = 0; i < objArray.length;i++) {
-    if(objArray[i].name === user){
-      if(objArray[i].password === password) {
-        objArray[i].active === true;
-        foundUser = true;
-      }
+    if(objArray[i].password === password) {
+      objArray[i].active === true;
+      foundUser = true;
     }
   }
   if(!foundUser){
@@ -35,19 +36,22 @@ function loginHandler(event) {
   localStorage.objArray = JSON.stringify(objArray);//update local storage
   window.location.href='matching.html';
 }
-
 document.getElementById('loginSubmit').addEventListener('submit', loginHandler);
 
 function signUpHandler(event) {
   event.preventDefault();
   var user = event.target.usernameNew.value.toLowerCase();
   var password = event.target.passwordNew.value;
-  new People(user, password);
-  objArray[objArray.length - 1].active = true;
-  localStorage.setItem('objArray', JSON.stringify(objArray));//update local storage
-  window.location.href='matching.html';
+  for (var i = 0; i < objArray.length; i++){
+    if(objArray[i].name === user) {
+      return alert('Username already in use. Please choose another username');
+    }
+    new People(user, password);
+    objArray[objArray.length - 1].active = true;
+    localStorage.setItem('objArray', JSON.stringify(objArray));//update local storage
+    window.location.href='matching.html';
+  }
 }
-
 document.getElementById('signUpSubmit').addEventListener('submit', signUpHandler);
 
 if(localStorage.objArray){
