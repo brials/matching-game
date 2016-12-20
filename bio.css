@@ -1,0 +1,24 @@
+body {
+  width: 850px;
+  font-family: Arial, Verdana, sans-serif;
+  color: #665544;
+}
+
+section {
+  width: 30%;
+  float: left;
+  margin: 20px;
+  padding: 60px; background-color: #efefef;
+}
+
+article {
+  float: left;
+}
+
+p {
+  width: 200px;
+}
+
+.clear {
+  clear: left;
+}
