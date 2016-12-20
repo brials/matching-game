@@ -106,41 +106,48 @@ function renderImage(){
 }
 
 //provide random index for array
-function random(array) {
-  return Math.floor(Math.random(array.length));
+function random(num) {
+  var number = Math.floor(Math.random() * num);
+  return number;
 }
 
 // function to assign new location to each card
 function imageRandom(rows) {
-  var array = [];
+  var arr = [];
   for (var x = 0; x < rows; x++) {
     for (var y = 0; y < rows; y++) {
       var temp = x + ',' + y;
-      array.push(temp);
+      arr.push(temp);
     }
   }
+  // console.log(arr);
   for (var b = 0; b < cardArray.length; b++) {
-    var tempTwo = random(array);
-    cardArray[b].location = array[tempTwo];
-    array.splice(tempTwo, 1);
+    var tempTwo = random(arr.length);
+    // console.log(tempTwo);
+    cardArray[b].location = arr[tempTwo];
+    // console.log(cardArray[b].location);
+    // console.log(arr);
+    arr.splice(tempTwo, 1);
+    // console.log(arr);
   }
 }
 
 function tableHandler(event){
   event.preventDefault();
   var clickId = event.target.id;
-  console.log(clickId);
-  console.log(event.target);
+  // console.log(clickId);
+  // console.log(event.target);
   if(clickId === '' || clickId === 'table'){
     return alert('Please click on an a remaining card.');
   }
   if(clickCount === 1){
     for(var i = 0; i < cardArray.length; i++){
+      // console.log(cardArray[i].name, clickId )
       if(cardArray[i].name === clickId){
         cardArray[i].faceUp = true;
         var click1 = clickId;
+        // console.log('hi');
         renderImage();
-        clickCount += 1;
       }
     }
   }
@@ -152,20 +159,21 @@ function tableHandler(event){
       }
     }
     var click2 = clickId;
-    setTimeout(function(){
-      if(click1 === click2){
-        for(var b = 0; b < cardArray.length; b++){
-          if(cardArray[b].name === click1){
-            cardArray[b].removed = true;
-          }
-        }
-      } else {
-        for(var e = 0; e < cardArray.length; e++){
-          cardArray[e].faceUp = false;
+    if(click1 === click2){
+      for(var b = 0; b < cardArray.length; b++){
+        if(cardArray[b].name === click1){
+          cardArray[b].removed = true;
         }
       }
-    }, 2000);
-    renderImage();
+    }
+    for(var e = 0; e < cardArray.length; e++){
+      cardArray[e].faceUp = false;
+    }
+  }
+  setTimeout(function(){renderImage()}, 3000);
+  if(clickCount === 1){
+    clickCount += 1;
+  } else {
     clickCount = 1;
   }
 }
