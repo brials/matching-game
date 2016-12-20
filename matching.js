@@ -208,14 +208,9 @@ makeCards(userRows);
 imageRandom(userRows);
 renderImage();
 
-<<<<<<< HEAD
 // Part of localStorage
 if(localStorage.objArray){
   objArray = JSON.parse(localStorage.objArray);
-=======
-if(localStorage.objArray){
-  objArray= JSON.parse(localStorage.objArray);
->>>>>>> master
 }
 
 tablePlace.addEventListener('click', tableHandler);
