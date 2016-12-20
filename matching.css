@@ -1,12 +1,27 @@
+body {
+  background-color: black;
+  background-image: url(http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg);
+  background-repeat: no-repeat;
+}
+
 td {
-  max-width: 50px;
-  max-height: 50px;
-  width: 50px;
-  height: 50px;
-  border: 2px dashed blue;
+  max-width: 100px;
+  max-height: 100px;
+  width: 100px;
+  height: 100px;
+}
+
+h1 {
+  text-align: center;
 }
 
 img{
-  max-width: 50px;
-  max-height: 50px;
+  max-width: 100px;
+  max-height: 100px;
+  width: 100px;
+  height: 100px;
+}
+
+ #table {
+   margin: 0 auto;
 }
