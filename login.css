@@ -1,11 +1,18 @@
 
 body {
   text-align: center;
+  /*background-image: url(https://s-media-cache-ak0.pinimg.com/736x/62/1c/b3/621cb3654e98fe86ada3b347781ce42b.jpg);*/
+
 }
+img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
 
-
+}
 button {
-  background-color: green;
+  background-color: #772299;
   color: white;
   border: none;
   padding: 5px 75px;
