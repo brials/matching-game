@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
-@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Oswald');
 
 body {
   background-image: url(http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg);
@@ -16,12 +15,12 @@ td {
 h1 {
   text-align: center;
   font-family: 'Oswald', sans-serif;
+  color: antiquewhite;
 }
 
 h2, a {
   font-family: 'Oswald', sans-serif;
-  font-family: 'Indie Flower', cursive;
-  color: darkblue;
+  color: antiquewhite;
 }
 
 img {
