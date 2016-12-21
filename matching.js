@@ -212,7 +212,8 @@ function tableHandler(event){
 }
 
 //on ai button click
-function aiButtonHandler(){
+function aiButtonHandler(event){
+  event.preventDefault();
   scorePlace.innerHTML = '';
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
@@ -261,6 +262,7 @@ function aiTableHandler(event){
         for(var b = 0; b < cardArray.length; b++){
           if(cardArray[b].name === click1){
             cardArray[b].removed = true;
+            cardArray[b].hasBeenSeen = false;
           }
         }
       }
@@ -270,33 +272,39 @@ function aiTableHandler(event){
     }
     setTimeout(function(){renderImage()}, 2000);
     checkIfFinished();
-    if(clickCount === 1){
-      clickCount += 1;
-    } else {
-      clickCount = 1;
-    }
   }
-  setTimeout(function(){compTurn()}, 5000);
-  setTimeout(function(){updateTurn()}, 5100);
+  if(clickCount === 1){
+    clickCount = 2;
+  } else {
+    clickCount = 1;
+    turn = 'comp';
+  }
+  console.log(clickCount, turn);
+  if(turn === 'comp'){
+    setTimeout(function(){compTurn()}, 5000);
+  }
 }
 
 //functions for ai handler only
 function isAMatch(element){
-  return element.uniqueName === aiCardMatch;
+  return element.uniqueName === aiCardMatch && element.hasBeenSeen === true;
 }
 function remove(match1, match2){
   cardArray[match1].removed = true;
   cardArray[match2].removed = true;
-  setTimeout(function(){renderImage()}, 2000);
+  cardArray[match1].hasBeenSeen = false;
+  cardArray[match2].hasBeenSeen = false;
+  renderImage();
 }
 
 function compTurn(){
-  if(turn === 'comp'){
-    var foundMatch = false;
-    var match1 = 0;
-    var match2 = 0;
-    for(var o = 0; o < cardArray.length; o++){
-      var hold = cardArray[o].uniqueName;
+  turn = 'user'
+  var foundMatch = false;
+  var match1 = 0;
+  var match2 = 0;
+  for(var i = 0; i < cardArray.length; i++){
+    if(cardArray.hasBeenSeen[i]){
+      var hold = cardArray[i].uniqueName;
       if(hold.slice(-1) === 1){
         hold = hold.slice(-1, 0) + '2';
       } else {
@@ -304,7 +312,7 @@ function compTurn(){
       }
       aiCardMatch = hold;
       if(cardArray.find(isAMatch)){
-        match1 = o;
+        match1 = i;
         foundMatch = true;
         for(var u = 0; u < cardArray.length; u++){
           if(cardArray[u].uniqueName === aiCardMatch){
@@ -313,36 +321,30 @@ function compTurn(){
         }
       }
     }
-    if(random(1) === 0 && foundMatch){
-      cardArray[match1].faceUp = true;
-      cardArray[match2].faceUp = true;
-      renderImage();
-      setTimeout(function(){remove(match1, match2)}, 2000)
-    } else {
+  }
+  if(random(1) === 0 && foundMatch){
+    cardArray[match1].faceUp = true;
+    cardArray[match2].faceUp = true;
+    renderImage();
+    setTimeout(function(){remove(match1, match2)}, 2000)
+  } else {
+    match1 = random(cardArray.length);
+    while(cardArray[match1].removed){
       match1 = random(cardArray.length);
-      match2 = random(cardArray.length);
-      while(match1 === match2){
-        match2 = random(cardArray.length);
-      }
-      cardArray[match1].faceUp = true;
-      cardArray[match2].faceUp = true;
-      renderImage();
-      cardArray[match1].faceUp = false;
-      cardArray[match2].faceUp = false;
-      setTimeout(function(){renderImage()}, 2000);
     }
+    match2 = random(cardArray.length);
+    while(match1 === match2 || cardArray[match2].removed){
+      match2 = random(cardArray.length);
+    }
+    cardArray[match1].faceUp = true;
+    cardArray[match2].faceUp = true;
+    renderImage();
+    cardArray[match1].faceUp = false;
+    cardArray[match2].faceUp = false;
+    setTimeout(function(){renderImage()}, 2000);
   }
 }
 
-function updateTurn(){
-  if(clickCount === 2 && turn === 'user'){
-    clickCount = 1;
-    turn = 'comp';
-  } else {
-    turn = 'user';
-    clickCount += 1;
-  }
-}
 //function call
 
 // Part of localStorage
