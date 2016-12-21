@@ -3,12 +3,11 @@
 var cardArray = []; // This will be the array of cards.
 var objArray = []; //This will be all of the users that we will pull from local storage.
 var cardArrayPause = [];
-var backImage = ''; //possible var filepath for back of cardArray
-var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 var scorePlace = document.getElementById('scores');
-var aiButtonPlace = document.getElementById('againstComp')
+var aiButtonPlace = document.getElementById('againstComp');
 var username = document.getElementById('username');
+var sectionPlace = document.getElementById('tableSection');
 var cardDown = 'images/Face_Down.png';
 var clickCount = 1;
 var userRows = 4;
@@ -18,6 +17,8 @@ var click1 = '';
 var click2 = '';
 var turn = 'user';
 var aiCardMatch = '';
+var userScore = 0;
+var aiScore = 0;
 
 // funtion to update username message
 function updateUserHeader() {
@@ -85,6 +86,8 @@ function makeCards(rows){
 // New Game button_ophelia
 document.getElementById('NewGame').addEventListener('click', function(){
   scorePlace.innerHTML = '';
+  sectionPlace.innerHTML = '';
+  clickCount = 1;
   tablePlace.addEventListener('click', tableHandler);
   tablePlace.removeEventListener('click', aiTableHandler);
   alert('How to Play\nCards are laid out in a grid face down. Click on a card to flip it over, then click on a second card. If the two cards match, they are removed from the game. If the cards are not a match, they are turned back over again. The game continues in this fashion until all the cards are played.\n Good Luck!');
@@ -254,12 +257,17 @@ function tableHandler(event){
 function aiButtonHandler(event){
   event.preventDefault();
   scorePlace.innerHTML = '';
+  sectionPlace.innerHTML = '';
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
   }
   tablePlace.removeEventListener('click',tableHandler);
   tablePlace.addEventListener('click', aiTableHandler);
+  clickCount = 1;
+  turn = 'user';
+  userScore = 0;
+  aiScore = 0;
   makeCards(userRows);
   imageRandom(userRows);
   renderImage();
@@ -268,6 +276,11 @@ function aiButtonHandler(event){
 //ai tablebuttonhandler.
 function aiTableHandler(event){
   event.preventDefault();
+  for(var g = 0; g < cardArray.length; g++){
+    if(cardArray[g].location === event.target.id && cardArray[g].removed === true){
+      return alert('Please click on a remaining card.');
+    }
+  }
   if(turn === 'user'){
     var eventId = event.target.id;
     for(var c = 0; c < cardArray.length; c++){
@@ -298,6 +311,7 @@ function aiTableHandler(event){
         }
       }
       if(click1 === click2){
+        userScore += 1;
         for(var b = 0; b < cardArray.length; b++){
           if(cardArray[b].name === click1){
             cardArray[b].removed = true;
@@ -310,7 +324,7 @@ function aiTableHandler(event){
       }
     }
     setTimeout(function(){renderImage()}, 2000);
-    checkIfFinished();
+    setTimeout(function(){checkIfFinishedAI()}, 2100);
   }
   if(clickCount === 1){
     clickCount = 2;
@@ -334,6 +348,7 @@ function remove(match1, match2){
   cardArray[match2].removed = true;
   cardArray[match1].hasBeenSeen = false;
   cardArray[match2].hasBeenSeen = false;
+  aiScore += 1;
   renderImage();
 }
 
@@ -401,8 +416,34 @@ function compTurn(){
       cardArray[match2].removed = true;
       cardArray[match1].hasBeenSeen = false;
       cardArray[match2].hasBeenSeen = false;
+      aiScore += 1;
     }
     setTimeout(function(){renderImage()}, 2000);
+  }
+  setTimeout(function(){checkIfFinishedAI()}, 2100);
+}
+
+function checkIfFinishedAI(){
+  var complete = true;
+  for(var i = 0; i < cardArray.length; i++){
+    if(!cardArray[i].removed){
+      complete = false;
+    }
+  }
+  if(complete){
+    tablePlace.innerHTML = '';
+    var msg = '';
+    var endMsg = 'Final Score = Player, ' + userScore + ' Computer, ' + aiScore;
+    if(userScore > aiScore){
+      msg = 'Congratulations You Win. ' + endMsg;
+    }
+    if(aiScore > userScore){
+      msg = 'The Computer Wins. ' + endMsg;
+    }
+    if(aiScore === userScore){
+      msg = 'It\'s A Draw. ' + endMsg;
+    }
+    rend('h1', msg, sectionPlace);
   }
 }
 
