@@ -8,6 +8,7 @@ var scorePlace = document.getElementById('scores');
 var aiButtonPlace = document.getElementById('againstComp');
 var username = document.getElementById('username');
 var sectionPlace = document.getElementById('tableSection');
+var instructButtonPlace = document.getElementById('instruct');
 var cardDown = 'images/Face_Down.png';
 var clickCount = 1;
 var userRows = 4;
@@ -89,7 +90,6 @@ document.getElementById('NewGame').addEventListener('click', function(){
   clickCount = 1;
   tablePlace.addEventListener('click', tableHandler);
   tablePlace.removeEventListener('click', aiTableHandler);
-  alert('How to Play\nCards are laid out in a grid face down. Click on a card to flip it over, then click on a second card. If the two cards match, they are removed from the game. If the cards are not a match, they are turned back over again. The game continues in this fashion until all the cards are played.\n Good Luck!');
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
@@ -125,6 +125,11 @@ console.log(localStorage[cardArrayPause]);
 // Resume button_ophelia
 document.getElementById('Resume').addEventListener('click', function(){
   cardArray = JSON.parse(localStorage.getItem('cardArrayPause'));
+  sectionPlace.innerHTML = '';
+  tablePlace.innerHTML = '';
+  scorePlace.innerHTML = '';
+  tablePlace.addEventListener('click', tableHandler);
+  tablePlace.removeEventListener('click', aiTableHandler);
   renderImage();
   startTime = Date.now();
 });
@@ -206,6 +211,11 @@ function renderScores(){
 //playing the game.
 function tableHandler(event){
   event.preventDefault();
+  for(var g = 0; g < cardArray.length; g++){
+    if(cardArray[g].location === event.target.id && cardArray[g].removed === true){
+      return alert('Please click on a remaining card.');
+    }
+  }
   var eventId = event.target.id;
   for(var c = 0; c < cardArray.length; c++){
     if(eventId === cardArray[c].location){
@@ -321,9 +331,9 @@ function aiTableHandler(event){
       for(var e = 0; e < cardArray.length; e++){
         cardArray[e].faceUp = false;
       }
+      setTimeout(function(){renderImage()}, 2000);
+      setTimeout(function(){checkIfFinishedAI()}, 2300);
     }
-    setTimeout(function(){renderImage()}, 2000);
-    setTimeout(function(){checkIfFinishedAI()}, 2100);
   }
   if(clickCount === 1){
     clickCount = 2;
@@ -332,8 +342,15 @@ function aiTableHandler(event){
     turn = 'comp';
   }
   console.log(clickCount, turn);
-  if(turn === 'comp'){
+  var complete = true;
+  for(var i = 0; i < cardArray.length; i++){
+    if(!cardArray[i].removed){
+      complete = false;
+    }
+  }
+  if(turn === 'comp' && !complete){
     setTimeout(function(){compTurn()}, 3000);
+    console.log('comp turn happened');
   }
 }
 
@@ -446,6 +463,22 @@ function checkIfFinishedAI(){
   }
 }
 
+function renderInstructions(){
+  sectionPlace.innerHTML = '';
+  tablePlace.innerHTML = '';
+  scorePlace.innerHTML = '';
+  rend('ol', 'Solo Game Instructions', sectionPlace, 'soloInstruct');
+  rend('li', 'Cards are laid out in a grid face down.', document.getElementById('soloInstruct'));
+  rend('li', 'Click on a card to flip it over, then click on a second card.', document.getElementById('soloInstruct'));
+  rend('li', 'If the two cards match, they are removed from the game.', document.getElementById('soloInstruct'));
+  rend('li', 'If the cards are not a match, they are turned back over again.', document.getElementById('soloInstruct'));
+  rend('li', 'The game continues in this fashion until all the cards are played.', document.getElementById('soloInstruct'));
+  rend('ol', 'AI Game Instructions', sectionPlace, 'aiInstruct');
+  rend('li', 'AI Game is played like solo game except after your turn there is a computer turn.', document.getElementById('aiInstruct'));
+  rend('li', 'Try and get the most matches to win the game.', document.getElementById('aiInstruct'));
+  rend('li', 'Please wait for the computer to finish before clicking the board again.', document.getElementById('aiInstruct'));
+}
+
 //function call
 
 // Part of localStorage
@@ -453,6 +486,8 @@ if(localStorage.objArray){
   objArray = JSON.parse(localStorage.objArray);
 }
 updateUserHeader();
+renderInstructions();
 
 // tablePlace.addEventListener('click', tableHandler);
 aiButtonPlace.addEventListener('click', aiButtonHandler);
+instructButtonPlace.addEventListener('click', renderInstructions);

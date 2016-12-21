@@ -48,3 +48,9 @@ img {
   background: lightgray;
   opacity: .7;
 }
+
+#tableSection{
+  margin: 0 auto;
+  background: lightgray;
+  opacity: .6;
+}
