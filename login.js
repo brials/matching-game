@@ -48,6 +48,9 @@ function signUpHandler(event) {
       return alert('Username already in use. Please choose another username');
     }
   }
+  if (user.includes(' ')) {
+    return alert('Please choose a "single word" username');
+  }
   new People(user, password);
   for(var j = 0; j < objArray.length; j++){
     objArray[j].active = false;

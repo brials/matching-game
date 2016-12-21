@@ -20,17 +20,16 @@ var aiCardMatch = '';
 var userScore = 0;
 var aiScore = 0;
 
-// funtion to update username message
+// function to update username message
 function updateUserHeader() {
   for(var i = 0; i < objArray.length; i++) {
     if(objArray[i].active) {
       var usernameKey = objArray[i].name;
     }
   }
-  var message = 'Welcome ' + usernameKey + '!!';
+  var message = 'Welcome ' + usernameKey.charAt(0).toUpperCase() + usernameKey.slice(1) + '!!';
   rend('h1', message, username);
 }
-
 
 // function to render to page
 function rend(el, content, place, id, img, newClass){
