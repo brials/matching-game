@@ -2,10 +2,6 @@
 
 var cardArray = []; // This will be the array of cards.
 var objArray = []; //This will be all of the users that we will pull from local storage.
-
-var backImage = ''; //possible var filepath for back of cardArray
-
-var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 var scorePlace = document.getElementById('scores');
 var cardDown = 'images/Face_Down.png';
@@ -16,11 +12,12 @@ var click1 = '';
 var click2 = '';
 
 // function to render to page
-function rend(el, content, place, id, img){
+function rend(el, content, place, id, img, newClass){
   var tempEl = document.createElement(el);
   tempEl.textContent = content;
   tempEl.setAttribute('id', id);
   tempEl.setAttribute('src', img);
+  tempEl.setAttribute('class', newClass)
   place.appendChild(tempEl);
 }
 
@@ -66,7 +63,6 @@ function makeCards(rows){
 document.getElementById('NewGame').addEventListener('click', function(){
   scorePlace.innerHTML = '';
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
-  console.log(userRows);
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
   }
@@ -78,10 +74,14 @@ document.getElementById('NewGame').addEventListener('click', function(){
 
 // track game time_ophelia
 var gameTime = function () {
-  var endTime = Date.now();
-  return endTime - startTime;
+  var total = Date.now() - startTime;
+  var minutes = Math.floor(total / 60000);
+  var seconds = Math.floor((total % 60000) / 1000);
+  var msg = minutes + ' Minutes, ' + seconds + ' Seconds';
+  return msg;
 }
 
+//render images to the table and create the table.
 function renderImage(){
   tablePlace.innerHTML = '';
   makeTable(userRows);
@@ -93,7 +93,6 @@ function renderImage(){
         rend('img', '', document.getElementById(cardArray[i].location), cardArray[i].location, cardArray[i].imgLocation);
       }
     }
-    // removedfilepath
   }
 }
 
@@ -119,6 +118,7 @@ function imageRandom(rows) {
   }
 }
 
+//do this at end of game.
 function checkIfFinished(){
   var complete = true;
   for(var i = 0; i < cardArray.length; i++){
@@ -135,23 +135,27 @@ function checkIfFinished(){
       }
     }
     localStorage.setItem('objArray', JSON.stringify(objArray))
-    renderScores();
+    setTimeout(function(){renderScores()}, 2100);
   }
 }
 
+//render scores.
 function renderScores(){
+  tablePlace.innerHTML = '';
   var difficulty = 'score' + userRows;
   var msg = 'User Time Difficulty ' + userRows;
-  rend('tr', 'User', scorePlace, 'head')
-  rend('th', msg, document.getElementById('head'));
+  rend('tr', '', scorePlace, 'head')
+  rend('th', 'User', document.getElementById('head'), '', '', 'tableHead');
+  rend('th', msg, document.getElementById('head'), '', '', 'tableHead');
   for(var i = 0; i < objArray.length; i++){
     var newId = i + 'scores'
     rend('tr', '', scorePlace, newId);
-    rend('td', objArray[i].name, document.getElementById(newId));
-    rend('td', objArray[i][difficulty], document.getElementById(newId));
+    rend('td', objArray[i].name, document.getElementById(newId), '', '', 'tableUser');
+    rend('td', objArray[i][difficulty], document.getElementById(newId), '', '', 'tableTime');
   }
 }
 
+//playing the game.
 function tableHandler(event){
   event.preventDefault();
   var eventId = event.target.id;
@@ -160,8 +164,6 @@ function tableHandler(event){
       var clickId = cardArray[c].name;
     }
   }
-  console.log(eventId);
-  console.log(clickId);
   if(clickId === '' || clickId === 'table'){
     return alert('Please click on an a remaining card.');
   }
@@ -204,9 +206,6 @@ function tableHandler(event){
 
 
 //function call
-makeCards(userRows);
-imageRandom(userRows);
-renderImage();
 
 // Part of localStorage
 if(localStorage.objArray){

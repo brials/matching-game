@@ -1,5 +1,6 @@
 body {
   background-color: black;
+  background-size: 100% 700px;
   background-image: url(http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg);
   background-repeat: no-repeat;
 }
@@ -24,4 +25,17 @@ img{
 
  #table {
    margin: 0 auto;
+}
+
+.tableHead, .tableUser, .tableTime{
+  height: 50px;
+  width: 100px;
+  color: black;
+  text-align: center;
+}
+
+#scores {
+  margin: 0 auto;
+  background: lightgray;
+  opacity: .7;
 }
