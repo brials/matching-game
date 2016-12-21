@@ -7,7 +7,11 @@ var backImage = ''; //possible var filepath for back of cardArray
 var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 var scorePlace = document.getElementById('scores');
+<<<<<<< HEAD
 var aiButtonPlace = document.getElementById('againstComp')
+=======
+var username = document.getElementById('username');
+>>>>>>> master
 var cardDown = 'images/Face_Down.png';
 var clickCount = 1;
 var userRows = 4;
@@ -17,6 +21,18 @@ var click1 = '';
 var click2 = '';
 var turn = 'user';
 var aiCardMatch = '';
+
+// funtion to update username message
+function updateUserHeader() {
+  for(var i = 0; i < objArray.length; i++) {
+    if(objArray[i].active) {
+      var usernameKey = objArray[i].name;
+    }
+  }
+  var message = 'Welcome ' + usernameKey + '!!';
+  rend('h1', message, username);
+}
+
 
 // function to render to page
 function rend(el, content, place, id, img, newClass){
@@ -376,6 +392,7 @@ function compTurn(){
 if(localStorage.objArray){
   objArray = JSON.parse(localStorage.objArray);
 }
+updateUserHeader();
 
 // tablePlace.addEventListener('click', tableHandler);
 aiButtonPlace.addEventListener('click', aiButtonHandler);
