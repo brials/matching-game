@@ -2,13 +2,17 @@
 
 var cardArray = []; // This will be the array of cards.
 var objArray = []; //This will be all of the users that we will pull from local storage.
+var cardArrayPause = [];
+var backImage = ''; //possible var filepath for back of cardArray
+var imagePaths = [];// all of the front image file paths
 var tablePlace = document.getElementById('table');
 var scorePlace = document.getElementById('scores');
 var aiButtonPlace = document.getElementById('againstComp')
 var cardDown = 'images/Face_Down.png';
 var clickCount = 1;
 var userRows = 4;
-var startTime = new Date;
+var startTime;
+var endTime;
 var click1 = '';
 var click2 = '';
 var turn = 'user';
@@ -40,7 +44,7 @@ function makeTable(rows){
   }
 }
 
-//create images
+//create images_ophelia
 var names = ['Alki_Beach','Bruce_Brandon','Chess_Player','Chief_Seattle','Elephant_Carwash','Elliot_Bay_bookstore','Fremont_Troll','Great_Wheel','Hiram_Chittenden_Locks','International_District','Ivar_Seafood','Jazz_Alley','Microsoft','Mount_Rainer_National_Park','Museum_of_Flight','Original_Starbucks','Pacific_Science_Center','Pike_Place_Market','Pioneer_Square','Queen_Ann_Beerhall','Safeco_Field','Science_Center','Seahawks','Seattle_Aquarium','Seattle_Art_Museum','Sleepless_in_Seattle','Space_Needle','University_of_Washington','Washington_Park_Arboretum','Washington_State_Ferries','Waterfront','Woodland_Park_Zoo']
 
 //create object_ophelia
@@ -50,8 +54,12 @@ function CardtoBeMatch(name, uniqueName) {
   this.faceUp = false;
   this.removed = false;
   this.location = '';
+<<<<<<< HEAD
   this.hasBeenSeen = false;
   this.uniqueName = uniqueName;
+=======
+  this.pauseTime = 0;
+>>>>>>> master
   cardArray.push(this);
 }
 
@@ -64,8 +72,8 @@ function makeCards(rows){
   }
 }
 
-// Resume button_ophelia
-document.getElementById('NewGame').addEventListener('click', function(){
+// New Game button_ophelia
+document.getElementById('New Game').addEventListener('click', function(){
   scorePlace.innerHTML = '';
   tablePlace.addEventListener('click', tableHandler);
   tablePlace.removeEventListener('click', aiTableHandler);
@@ -81,6 +89,7 @@ document.getElementById('NewGame').addEventListener('click', function(){
 
 // track game time_ophelia
 var gameTime = function () {
+<<<<<<< HEAD
   var total = Date.now() - startTime;
   var minutes = Math.floor(total / 60000);
   var seconds = Math.floor((total % 60000) / 1000);
@@ -89,6 +98,29 @@ var gameTime = function () {
 }
 
 //render images to the table and create the table.
+=======
+  endTime = Date.now();
+  return endTime - startTime;
+}
+
+// Save button_ophelia
+document.getElementById('Save').addEventListener('click', function(){
+  localStorage.removeItem('cardArrayPause');
+  for(var i = 0; i < userRows*userRows; i++) {
+    // cardArray[i] = cardArrayPause[i];
+    cardArray[i].pauseTime = gameTime();
+  }
+  localStorage.setItem('cardArrayPause',JSON.stringify(cardArray));
+});
+console.log(localStorage[cardArrayPause]);
+// Resume button_ophelia
+document.getElementById('Resume').addEventListener('click', function(){
+  cardArray = JSON.parse(localStorage.getItem('cardArrayPause'));
+  renderImage();
+  startTime = Date.now();
+});
+
+>>>>>>> master
 function renderImage(){
   tablePlace.innerHTML = '';
   makeTable(userRows);
