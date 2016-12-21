@@ -2,7 +2,7 @@
 
 var cardArray = []; // This will be the array of cards.
 var objArray = []; //This will be all of the users that we will pull from local storage.
-
+var cardArrayPause = [];
 var backImage = ''; //possible var filepath for back of cardArray
 
 var imagePaths = [];// all of the front image file paths
@@ -12,7 +12,8 @@ var username = document.getElementById('username');
 var cardDown = 'images/Face_Down.png';
 var clickCount = 1;
 var userRows = 4;
-var startTime = new Date;
+var startTime;
+var endTime;
 var click1 = '';
 var click2 = '';
 
@@ -53,7 +54,7 @@ function makeTable(rows){
   }
 }
 
-//create images
+//create images_ophelia
 var names = ['Alki_Beach','Bruce_Brandon','Chess_Player','Chief_Seattle','Elephant_Carwash','Elliot_Bay_bookstore','Fremont_Troll','Great_Wheel','Hiram_Chittenden_Locks','International_District','Ivar_Seafood','Jazz_Alley','Microsoft','Mount_Rainer_National_Park','Museum_of_Flight','Original_Starbucks','Pacific_Science_Center','Pike_Place_Market','Pioneer_Square','Queen_Ann_Beerhall','Safeco_Field','Science_Center','Seahawks','Seattle_Aquarium','Seattle_Art_Museum','Sleepless_in_Seattle','Space_Needle','University_of_Washington','Washington_Park_Arboretum','Washington_State_Ferries','Waterfront','Woodland_Park_Zoo']
 
 //create object_ophelia
@@ -63,6 +64,7 @@ function CardtoBeMatch(name) {
   this.faceUp = false;
   this.removed = false;
   this.location = '';
+  this.pauseTime = 0;
   cardArray.push(this);
 }
 
@@ -75,11 +77,10 @@ function makeCards(rows){
   }
 }
 
-// Resume button_ophelia
-document.getElementById('NewGame').addEventListener('click', function(){
+// New Game button_ophelia
+document.getElementById('New Game').addEventListener('click', function(){
   scorePlace.innerHTML = '';
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
-  console.log(userRows);
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
   }
@@ -91,9 +92,26 @@ document.getElementById('NewGame').addEventListener('click', function(){
 
 // track game time_ophelia
 var gameTime = function () {
-  var endTime = Date.now();
+  endTime = Date.now();
   return endTime - startTime;
 }
+
+// Save button_ophelia
+document.getElementById('Save').addEventListener('click', function(){
+  localStorage.removeItem('cardArrayPause');
+  for(var i = 0; i < userRows*userRows; i++) {
+    // cardArray[i] = cardArrayPause[i];
+    cardArray[i].pauseTime = gameTime();
+  }
+  localStorage.setItem('cardArrayPause',JSON.stringify(cardArray));
+});
+console.log(localStorage[cardArrayPause]);
+// Resume button_ophelia
+document.getElementById('Resume').addEventListener('click', function(){
+  cardArray = JSON.parse(localStorage.getItem('cardArrayPause'));
+  renderImage();
+  startTime = Date.now();
+});
 
 function renderImage(){
   tablePlace.innerHTML = '';
@@ -217,9 +235,9 @@ function tableHandler(event){
 
 
 //function call
-makeCards(userRows);
-imageRandom(userRows);
-renderImage();
+// makeCards(userRows);
+// imageRandom(userRows);
+// renderImage();
 
 // Part of localStorage
 if(localStorage.objArray){
