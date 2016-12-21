@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
 
 body {
   background-image: url("http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg");
@@ -9,7 +10,8 @@ body {
 }
 
 h1, a {
-  color: #4200EE;
+  font-family: 'Oswald', sans-serif;
+  color: black;
 }
 
 section {
