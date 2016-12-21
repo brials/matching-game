@@ -8,12 +8,6 @@ body {
   background-image: url(http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg);
 }
 
-img {
-
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-
-}
 
 button {
   background-color: #4280a7;
