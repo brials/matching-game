@@ -80,6 +80,7 @@ function makeCards(rows){
 // New Game button_ophelia
 document.getElementById('New Game').addEventListener('click', function(){
   scorePlace.innerHTML = '';
+  alert('How to Play\nCards are laid out in a grid face down. Click on a card to flip it over, then click on a second card. If the two cards match, they are removed from the game. If the cards are not a match, they are turned back over again. The game continues in this fashion until all the cards are played.\n Good Luck!');
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
