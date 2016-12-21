@@ -54,12 +54,9 @@ function CardtoBeMatch(name, uniqueName) {
   this.faceUp = false;
   this.removed = false;
   this.location = '';
-<<<<<<< HEAD
   this.hasBeenSeen = false;
   this.uniqueName = uniqueName;
-=======
   this.pauseTime = 0;
->>>>>>> master
   cardArray.push(this);
 }
 
@@ -86,19 +83,15 @@ document.getElementById('New Game').addEventListener('click', function(){
   renderImage();
   startTime = Date.now();
 });
-
-// track game time_ophelia
-var gameTime = function () {
-<<<<<<< HEAD
-  var total = Date.now() - startTime;
+function timeCount(time){
+  var total = time
   var minutes = Math.floor(total / 60000);
   var seconds = Math.floor((total % 60000) / 1000);
   var msg = minutes + ' Minutes, ' + seconds + ' Seconds';
   return msg;
 }
-
-//render images to the table and create the table.
-=======
+// track game time_ophelia
+var gameTime = function () {
   endTime = Date.now();
   return endTime - startTime;
 }
@@ -120,7 +113,7 @@ document.getElementById('Resume').addEventListener('click', function(){
   startTime = Date.now();
 });
 
->>>>>>> master
+
 function renderImage(){
   tablePlace.innerHTML = '';
   makeTable(userRows);
@@ -166,7 +159,7 @@ function checkIfFinished(){
     }
   }
   if(complete){
-    var time = gameTime();
+    var time = timeCount(gameTime());
     var difficulty = 'score' + userRows;
     for(var j = 0; j < objArray.length; j++){
       if(objArray[j].active){
