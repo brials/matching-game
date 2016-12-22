@@ -9,6 +9,7 @@ var aiButtonPlace = document.getElementById('againstComp');
 var username = document.getElementById('username');
 var sectionPlace = document.getElementById('tableSection');
 var instructButtonPlace = document.getElementById('instruct');
+var asidePlace = document.getElementById('aside');
 var cardDown = 'images/Face_Down.png';
 var clickCount = 1;
 var userRows = 4;
@@ -267,6 +268,7 @@ function aiButtonHandler(event){
   event.preventDefault();
   scorePlace.innerHTML = '';
   sectionPlace.innerHTML = '';
+  delayAsideRend();
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
@@ -343,12 +345,13 @@ function aiTableHandler(event){
   }
   console.log(clickCount, turn);
   var complete = true;
-  for(var i = 0; i < cardArray.length; i++){
+  for( i = 0; i < cardArray.length; i++){
     if(!cardArray[i].removed){
       complete = false;
     }
   }
   if(turn === 'comp' && !complete){
+    setTimeout(function(){delayAsideRend()}, 2000);
     setTimeout(function(){compTurn()}, 3000);
     console.log('comp turn happened');
   }
@@ -436,6 +439,7 @@ function compTurn(){
     }
     setTimeout(function(){renderImage()}, 2000);
   }
+  setTimeout(function(){delayAsideRend()}, 2100);
   setTimeout(function(){checkIfFinishedAI()}, 2100);
 }
 
@@ -448,6 +452,7 @@ function checkIfFinishedAI(){
   }
   if(complete){
     tablePlace.innerHTML = '';
+    asidePlace.innerHTML = '';
     var msg = '';
     var endMsg = 'Final Score = Player, ' + userScore + ' Computer, ' + aiScore;
     if(userScore > aiScore){
@@ -461,6 +466,11 @@ function checkIfFinishedAI(){
     }
     rend('h1', msg, sectionPlace);
   }
+}
+
+function delayAsideRend(){
+  asidePlace.innerHTML = '';
+  rend('p', 'It is the ' + turn + '\'s turn.', asidePlace);
 }
 
 function renderInstructions(){

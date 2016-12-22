@@ -54,3 +54,6 @@ img {
   background: lightgray;
   opacity: .6;
 }
+aside {
+  float:right;
+}
