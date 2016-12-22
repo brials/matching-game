@@ -16,12 +16,12 @@ function People(name, password) {
 
 function loginHandler(event) {
   event.preventDefault();
-  var foundUser=false;
+  var foundUser = false;
   var user = event.target.username.value.toLowerCase();
   var password = event.target.password.value;
   console.log(user);
   console.log(password);
-  for (var i = 0; i < objArray.length;i++) {
+  for (var i = 0; i < objArray.length; i++) {
     objArray[i].active = false;
     if(objArray[i].name === user && objArray[i].password === password) {
       objArray[i].active = true;
@@ -38,7 +38,7 @@ document.getElementById('loginSubmit').addEventListener('submit', loginHandler);
 
 function signUpHandler(event) {
   event.preventDefault();
-  var user = document.getElementsByClassName('return_name')[0].value;
+  var user = document.getElementsByClassName('return_name')[0].value.toLowerCase();
   var password = document.getElementsByClassName('return_password')[0].value;
   for (var i = 0; i < objArray.length; i++){
     if(objArray[i].name === user) {
@@ -53,8 +53,7 @@ function signUpHandler(event) {
     objArray[j].active = false;
   }
   new People(user, password);
-  // objArray[objArray.length - 1].active = true;
-  localStorage.setItem('objArray', JSON.stringify(objArray));//update local storage
+  localStorage.setItem('objArray', JSON.stringify(objArray));
   window.location.href='matching.html';
 }
 document.getElementsByClassName('signUpButton')[0].addEventListener('click', signUpHandler);
