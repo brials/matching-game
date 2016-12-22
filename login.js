@@ -9,15 +9,12 @@ function People(name, password) {
   this.score4 = 0;
   this.score6 = 0;
   this.score8 = 0;
-  //game-status = render state of table from previous session = [];
   objArray.push(this);
   this.active = true;
 
 }
 
 function loginHandler(event) {
-  //Object
-  //element objArray
   event.preventDefault();
   var foundUser=false;
   var user = event.target.username.value.toLowerCase();
