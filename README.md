@@ -29,6 +29,6 @@ group stand-up meeting at 9
 2. As a developer I want to have a UI that is interactive with user.
 3. As a developer I want the user to have a choice between playing with an AI and by themselves.
 
-1. As a future job seeker I want to be able to showcase my talents through this project to future employors.
+1. As a future job seeker I want to be able to showcase my talents through this project to future employers.
 2. As a future job seeker I want to add this project into my portfolio.
 3. As a future job seeker I want to design a creative and interactive game.
