@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
 body {
-  background-image: url("http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg");
+  background: url(http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  width: 100%;
   font-family: Arial, Verdana, sans-serif;
   color: #665544;
-  margin-left:80px;
 }
 
 h1, a {
@@ -14,12 +15,18 @@ h1, a {
   color: black;
 }
 
+h1 {
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 20px;
+}
 section {
   width: 30%;
   height:400px;
   float: left;
   margin: 20px 60px 20px 0px;
-  padding: 60px; background-color: #efefef;
+  padding: 60px;
+  background-color: #efefef;
 }
 
 article {
@@ -36,6 +43,47 @@ p {
 }
 
 img{
-  max-width: 100px;
-  max-height: 100px;
+  width: 100px;
+  height:100px;
+  border-radius: 50%;
+}
+li{
+  display: inline;
+  list-style:none;
+  padding:20px;
+
+
+}
+ul {
+  text-align: center;
+  margin-top: 50px;
+}
+.container {
+  width: 900px;
+  margin: 50px auto;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 460px) {
+  .container{
+    width:300px;
+    }
+    section {
+      width: 95%;
+      height:100%;
+      float: none;
+      margin: 0px;
+      padding: 0px;
+      color: black;
+    }
+    article {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      background-color: #efefef;
+      padding: 10px 20px;
+    }
 }
