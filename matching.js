@@ -255,7 +255,7 @@ function tableHandler(event){
       cardArray[e].faceUp = false;
     }
   }
-  setTimeout(function(){renderImage()}, 2000);
+  setTimeout(function(){renderImage()}, 3000);
   checkIfFinished();
   if(clickCount === 1){
     clickCount += 1;
@@ -488,9 +488,7 @@ function renderInstructions(){
   asidePlace.innerHTML = '';
   rend('ol', 'Solo Game Instructions', sectionPlace, 'soloInstruct');
   rend('li', 'Cards are laid out in a grid face down.', document.getElementById('soloInstruct'));
-  rend('li', 'Click on a card to flip it over, then click on a second card.', document.getElementById('soloInstruct'));
-  rend('li', 'If the two cards match, they are removed from the game.', document.getElementById('soloInstruct'));
-  rend('li', 'If the cards are not a match, they are turned back over again.', document.getElementById('soloInstruct'));
+  rend('li', 'Click on a card to flip it over, then click on a second card and try to find a match.', document.getElementById('soloInstruct'));
   rend('li', 'The game continues in this fashion until all the cards are played.', document.getElementById('soloInstruct'));
   rend('ol', 'AI Game Instructions', sectionPlace, 'aiInstruct');
   rend('li', 'AI Game is played like solo game except after your turn there is a computer turn.', document.getElementById('aiInstruct'));

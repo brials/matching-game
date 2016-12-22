@@ -19,8 +19,6 @@ function loginHandler(event) {
   var foundUser = false;
   var user = event.target.username.value.toLowerCase();
   var password = event.target.password.value;
-  console.log(user);
-  console.log(password);
   for (var i = 0; i < objArray.length; i++) {
     objArray[i].active = false;
     if(objArray[i].name === user && objArray[i].password === password) {
