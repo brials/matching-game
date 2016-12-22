@@ -18,6 +18,7 @@ h1 {
   text-align: center;
   font-family: 'Oswald', sans-serif;
   color: black;
+  font-size: 50px;
 }
 
 h2, a {
@@ -33,7 +34,7 @@ img {
 }
 
 #table {
-   margin: 0 auto;
+ margin: 0 auto;
 }
 
 .tableHead, .tableUser, .tableTime{
@@ -65,7 +66,19 @@ ol{
 }
 
 li{
+  font-weight: normal;
+}
+nav li{
 font-weight: normal;
+display: inline;
+list-style: none;
+padding: 20px;
+}
+
+ul{
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 50px;
 }
 
 div{
