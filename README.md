@@ -16,3 +16,19 @@ NO PUSH to MASTER. After merge conflict resolved, ACP to local branch and contin
 whenever there is bothering you, when speak up, everyone gathers.
 everyone be at Code Fellow 9-5
 group stand-up meeting at 9
+
+
+## User Stories
+
+1. As a user I want an intuitive and interactive design.
+2. As a user I want to be able to play an enjoyable game.
+3. As a user I want to be able to save my score and improve my game.
+4. As a user I want to pause my game and come back to it later.
+
+1. As a developer I want a professional and clean looking product.
+2. As a developer I want to have a UI that is interactive with user.
+3. As a developer I want the user to have a choice between playing with an AI and by themselves.
+
+1. As a future job seeker I want to be able to showcase my talents through this project to future employors.
+2. As a future job seeker I want to add this project into my portfolio.
+3. As a future job seeker I want to design a creative and interactive game.
