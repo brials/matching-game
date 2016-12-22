@@ -86,15 +86,16 @@ function makeCards(rows){
 
 // New Game button_ophelia
 document.getElementById('NewGame').addEventListener('click', function(){
-  scorePlace.innerHTML = '';
-  sectionPlace.innerHTML = '';
-  clickCount = 1;
-  tablePlace.addEventListener('click', tableHandler);
-  tablePlace.removeEventListener('click', aiTableHandler);
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
   }
+  scorePlace.innerHTML = '';
+  sectionPlace.innerHTML = '';
+  asidePlace.innerHTML = '';
+  clickCount = 1;
+  tablePlace.addEventListener('click', tableHandler);
+  tablePlace.removeEventListener('click', aiTableHandler);
   makeCards(userRows);
   imageRandom(userRows);
   renderImage();
@@ -129,6 +130,7 @@ document.getElementById('Resume').addEventListener('click', function(){
   sectionPlace.innerHTML = '';
   tablePlace.innerHTML = '';
   scorePlace.innerHTML = '';
+  asidePlace.innerHTML = '';
   tablePlace.addEventListener('click', tableHandler);
   tablePlace.removeEventListener('click', aiTableHandler);
   renderImage();
@@ -266,13 +268,14 @@ function tableHandler(event){
 //on ai button click
 function aiButtonHandler(event){
   event.preventDefault();
-  scorePlace.innerHTML = '';
-  sectionPlace.innerHTML = '';
-  delayAsideRend();
   userRows = parseInt(prompt('Enter your level: 2 or 4 or 6 or 8'));
   if(userRows != 2 && userRows != 4 && userRows != 6 && userRows != 8){
     return alert('Sorry, the answer must be either 2 or 4 or 6 or 8');
   }
+  scorePlace.innerHTML = '';
+  sectionPlace.innerHTML = '';
+  asidePlace.innerHTML = '';
+  delayAsideRend(turn);
   tablePlace.removeEventListener('click',tableHandler);
   tablePlace.addEventListener('click', aiTableHandler);
   clickCount = 1;
@@ -351,7 +354,7 @@ function aiTableHandler(event){
     }
   }
   if(turn === 'comp' && !complete){
-    setTimeout(function(){delayAsideRend()}, 2000);
+    setTimeout(function(){delayAsideRend(turn)}, 2000);
     setTimeout(function(){compTurn()}, 3000);
     console.log('comp turn happened');
   }
@@ -439,7 +442,7 @@ function compTurn(){
     }
     setTimeout(function(){renderImage()}, 2000);
   }
-  setTimeout(function(){delayAsideRend()}, 2100);
+  setTimeout(function(){delayAsideRend(turn)}, 2100);
   setTimeout(function(){checkIfFinishedAI()}, 2100);
 }
 
@@ -468,15 +471,16 @@ function checkIfFinishedAI(){
   }
 }
 
-function delayAsideRend(){
+function delayAsideRend(turn){
   asidePlace.innerHTML = '';
-  rend('p', 'It is the ' + turn + '\'s turn.', asidePlace);
+  rend('p', 'It is the ' + turn + '\'s turn.', asidePlace, '', '', turn);
 }
 
 function renderInstructions(){
   sectionPlace.innerHTML = '';
   tablePlace.innerHTML = '';
   scorePlace.innerHTML = '';
+  asidePlace.innerHTML = '';
   rend('ol', 'Solo Game Instructions', sectionPlace, 'soloInstruct');
   rend('li', 'Cards are laid out in a grid face down.', document.getElementById('soloInstruct'));
   rend('li', 'Click on a card to flip it over, then click on a second card.', document.getElementById('soloInstruct'));

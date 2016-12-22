@@ -1,9 +1,9 @@
 
 body {
-
+  background-color: black;
   text-align: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto;
   background-image: url(http://www.thephotoargus.com/wp-content/uploads/2015/08/kerry-park5.jpg);
 }
 
@@ -18,7 +18,7 @@ button {
   background-color: #4280a7;
   color: white;
   border: none;
-  padding: 5px 75px;
+  padding: 5px 5px;
   text-align: center;
   text-decoration: none;
   display: block;
