@@ -41,8 +41,8 @@ document.getElementById('loginSubmit').addEventListener('submit', loginHandler);
 
 function signUpHandler(event) {
   event.preventDefault();
-  var user = event.target.usernameNew.value.toLowerCase();
-  var password = event.target.passwordNew.value;
+  var user = document.getElementsByClassName('return_name')[0].value;
+  var password = document.getElementsByClassName('return_password')[0].value;
   for (var i = 0; i < objArray.length; i++){
     if(objArray[i].name === user) {
       return alert('Username already in use. Please choose another username');
@@ -51,15 +51,16 @@ function signUpHandler(event) {
   if (user.includes(' ')) {
     return alert('Please choose a "single word" username');
   }
-  new People(user, password);
+
   for(var j = 0; j < objArray.length; j++){
     objArray[j].active = false;
   }
-  objArray[objArray.length - 1].active = true;
+  new People(user, password);
+  // objArray[objArray.length - 1].active = true;
   localStorage.setItem('objArray', JSON.stringify(objArray));//update local storage
   window.location.href='matching.html';
 }
-document.getElementById('signUpSubmit').addEventListener('submit', signUpHandler);
+document.getElementsByClassName('signUpButton')[0].addEventListener('click', signUpHandler);
 
 if(localStorage.objArray){
   var retrievedData = localStorage.getItem('objArray');
