@@ -65,9 +65,10 @@ ol{
   font-weight: bold;
 }
 
-li{
+ol li{
   font-weight: normal;
 }
+
 nav li{
 font-weight: normal;
 display: inline;
