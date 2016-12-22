@@ -2,7 +2,6 @@
 
 var cardArray = []; // This will be the array of cards.
 var objArray = []; //This will be all of the users that we will pull from local storage.
-var cardArrayPause = [];
 var tablePlace = document.getElementById('table');
 var scorePlace = document.getElementById('scores');
 var aiButtonPlace = document.getElementById('againstComp');
@@ -21,6 +20,7 @@ var turn = 'user';
 var aiCardMatch = '';
 var userScore = 0;
 var aiScore = 0;
+var clickHolder = '';
 
 // function to update username message
 function updateUserHeader() {
@@ -118,12 +118,11 @@ var gameTime = function () {
 document.getElementById('Save').addEventListener('click', function(){
   localStorage.removeItem('cardArrayPause');
   for(var i = 0; i < userRows*userRows; i++) {
-    // cardArray[i] = cardArrayPause[i];
     cardArray[i].pauseTime = gameTime();
   }
   localStorage.setItem('cardArrayPause',JSON.stringify(cardArray));
 });
-console.log(localStorage[cardArrayPause]);
+
 // Resume button_ophelia
 document.getElementById('Resume').addEventListener('click', function(){
   cardArray = JSON.parse(localStorage.getItem('cardArrayPause'));
@@ -300,12 +299,19 @@ function aiTableHandler(event){
     for(var c = 0; c < cardArray.length; c++){
       if(eventId === cardArray[c].location){
         var clickId = cardArray[c].name;
+        var clickLoc = cardArray[c].location;
+        var clickUnique = cardArray[c].uniqueName;
       }
     }
     if(clickId === '' || clickId === 'table'){
       return alert('Please click on an a remaining card.');
     }
     if(clickCount === 1){
+      for(var m = 0; m <cardArray.length; m++){
+        if(clickLoc === cardArray[m].location){
+          clickHolder = cardArray[m].uniqueName;
+        }
+      }
       for(var i = 0; i < cardArray.length; i++){
         if(cardArray[i].location === eventId){
           cardArray[i].faceUp = true;
@@ -316,6 +322,10 @@ function aiTableHandler(event){
       }
     }
     if(clickCount === 2){
+      if(clickHolder === clickUnique){
+        return alert('Please click on a different card.')
+      }
+      tablePlace.removeEventListener('click', aiTableHandler);
       for(var j = 0; j < cardArray.length; j++){
         if(cardArray[j].location === eventId){
           cardArray[j].faceUp = true;
@@ -336,6 +346,7 @@ function aiTableHandler(event){
       for(var e = 0; e < cardArray.length; e++){
         cardArray[e].faceUp = false;
       }
+      clickHolder = '';
       setTimeout(function(){renderImage()}, 2000);
       setTimeout(function(){checkIfFinishedAI()}, 2300);
     }
@@ -346,7 +357,6 @@ function aiTableHandler(event){
     clickCount = 1;
     turn = 'comp';
   }
-  console.log(clickCount, turn);
   var complete = true;
   for( i = 0; i < cardArray.length; i++){
     if(!cardArray[i].removed){
@@ -356,7 +366,6 @@ function aiTableHandler(event){
   if(turn === 'comp' && !complete){
     setTimeout(function(){delayAsideRend(turn)}, 2000);
     setTimeout(function(){compTurn()}, 3000);
-    console.log('comp turn happened');
   }
 }
 
@@ -382,19 +391,13 @@ function compTurn(){
   for(var i = 0; i < cardArray.length; i++){
     if(cardArray[i].hasBeenSeen){
       var hold = cardArray[i].uniqueName;
-      console.log(hold);
       if(hold.slice(-1) === '1'){
         hold = hold.slice(0, -1) + '2';
-        console.log(hold);
       } else {
         hold = hold.slice(0, -1) + '1';
-        console.log(hold);
       }
-      console.log(hold);
       aiCardMatch = hold;
-      console.log(aiCardMatch);
       if(cardArray.find(isAMatch)){
-        console.log('array.find worked.')
         match1 = i;
         foundMatch = true;
         for(var u = 0; u < cardArray.length; u++){
@@ -408,7 +411,6 @@ function compTurn(){
     if(foundMatch){
       break;
     }
-    console.log(i);
   }
   if(random(1) === 0 && foundMatch){
     cardArray[match1].faceUp = true;
@@ -428,8 +430,6 @@ function compTurn(){
     cardArray[match2].faceUp = true;
     cardArray[match1].hasBeenSeen = true;
     cardArray[match2].hasBeenSeen = true;
-    console.log(cardArray[match1]);
-    console.log(cardArray[match2]);
     renderImage();
     cardArray[match1].faceUp = false;
     cardArray[match2].faceUp = false;
@@ -444,6 +444,11 @@ function compTurn(){
   }
   setTimeout(function(){delayAsideRend(turn)}, 2100);
   setTimeout(function(){checkIfFinishedAI()}, 2100);
+  setTimeout(function(){addEventListener()}, 2100);
+}
+
+function addEventListener(){
+  tablePlace.addEventListener('click', aiTableHandler);
 }
 
 function checkIfFinishedAI(){
