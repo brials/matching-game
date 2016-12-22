@@ -40,6 +40,9 @@ function signUpHandler(event) {
   event.preventDefault();
   var user = document.getElementsByClassName('return_name')[0].value.toLowerCase();
   var password = document.getElementsByClassName('return_password')[0].value;
+  if(user === '' || password === ''){
+    return alert('Please enter a value for both username and password');
+  }
   for (var i = 0; i < objArray.length; i++){
     if(objArray[i].name === user) {
       return alert('Username already in use. Please choose another username');
