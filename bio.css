@@ -65,7 +65,11 @@ ul {
 
 }
 
-a {
+article > a{
+  display: block;
+  margin-top: 10px
+}
+nav a {
   text-decoration: none;
 }
 
