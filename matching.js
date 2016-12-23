@@ -190,7 +190,7 @@ function checkIfFinished(){
       }
     }
     localStorage.setItem('objArray', JSON.stringify(objArray))
-    setTimeout(function(){renderScores()}, 2100);
+    setTimeout(function(){renderScores()}, 3100);
   }
 }
 
@@ -472,7 +472,7 @@ function checkIfFinishedAI(){
     if(aiScore === userScore){
       msg = 'It\'s A Draw. ' + endMsg;
     }
-    rend('h1', msg, sectionPlace);
+    rend('h1', msg, sectionPlace, 'compVsAi');
   }
 }
 
